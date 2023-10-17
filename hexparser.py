@@ -8,14 +8,14 @@ def get_item_names(item_list: list[dict]) -> list:
     return item_names
 
 
-def parse_map(item_names: list) -> dict:
+def parse_map(save_path: str,item_names: list) -> dict:
     map_items = {}
-    files = [f for f in os.listdir('C:\\Users\\k\\Zomboid\\Saves\\Survivor\\11\\') if os.path.isfile(f'C:\\Users\\k\\Zomboid\\Saves\\Survivor\\11\\{f}')]
+    files = [f for f in os.listdir(save_path) if os.path.isfile(save_path + f)]
     for file in files:
         if not file.startswith('map_'):
             continue
         coords = tuple(int(x) for x in file.split('map_')[1].split('.')[0].split('_'))
-        with open(f'C:\\Users\\k\\Zomboid\\Saves\\Survivor\\11\\map_1193_679.bin', 'rb') as bin_file:
+        with open(save_path + file, 'rb') as bin_file:
             text_by_char = ''
             while True:
                 data = bin_file.read(1)
@@ -31,6 +31,6 @@ def parse_map(item_names: list) -> dict:
 
 if __name__ == '__main__':
     item_names = get_item_names(items_list)
-    parse_map(item_names)
+    parse_map('', item_names)
 
 
