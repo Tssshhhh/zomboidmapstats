@@ -8,7 +8,7 @@ def get_item_names(item_list: list[dict]) -> list:
     return item_names
 
 
-def parse_map(save_path: str,item_names: list) -> dict:
+def parse_map(save_path: str, item_names: list) -> dict:
     map_items = {}
     files = [f for f in os.listdir(save_path) if os.path.isfile(save_path + f)]
     for file in files:
@@ -23,14 +23,17 @@ def parse_map(save_path: str,item_names: list) -> dict:
                     break
                 text_by_char += chr(ord(data))
             letters = re.sub('[^a-zA-Z0-9._]', '', text_by_char)
-        map_items[coords] = 0
-        print(map_items)
+        map_items[coords] = {}
+        for item in item_names:
+            if item in letters:
+                if item not in map_items[coords]:
+                    map_items[coords][item] = 0
+                map_items[coords][item] += 1
         break
 
 
 
 if __name__ == '__main__':
+    save_path = 'save\\'
     item_names = get_item_names(items_list)
-    parse_map('', item_names)
-
-
+    parse_map(save_path, item_names)
