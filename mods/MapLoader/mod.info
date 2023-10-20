@@ -1,0 +1,4 @@
+name=Map Loader
+id=MapLoader
+description=Alows pre-loading of map for mods using loadgridcell functions
+poster=poster.png
